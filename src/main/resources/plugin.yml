@@ -1,0 +1,6 @@
+name: dwaslashe-Lobby
+version: 1.0
+api-version: 1.16
+description: Tools for Servers Lobby
+author: dwaslashe
+main: xyz.dwaslashe.lobby.Main
