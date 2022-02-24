@@ -3,20 +3,20 @@ package xyz.dwaslashe.lobby.listeners;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import xyz.dwaslashe.lobby.Main;
 import xyz.dwaslashe.lobby.utils.Api;
+import xyz.dwaslashe.lobby.utils.ItemApi;
+
 import java.util.*;
 
 @Getter @Setter
@@ -24,10 +24,15 @@ public class SwordPvPListener implements Listener {
 
     public HashMap<Player, BukkitRunnable> pvpTask = new HashMap<>();
     public HashMap<Player, BukkitRunnable> pvpTask2 = new HashMap<>();
-    public HashMap<Player, Boolean> flying = new HashMap<>();
     public ArrayList<Player> pvp = new ArrayList<>();
 
-    private ItemStack sword = new ItemStack((Material.DIAMOND_SWORD));
+    public static ItemStack sword = new ItemApi(Material.DIAMOND_SWORD, (short)0)
+            .addEnchant(Enchantment.DAMAGE_ALL, 5)
+            .addEnchant(Enchantment.DURABILITY, 10)
+            .setName("&#FF3131Walka &8(&7przytrzymaj&8)")
+            .setUnbreakable(true)
+            .setLore(Arrays.asList("", " &f&nNajedź na miecz aby zaczac walke!"))
+            .toIS();
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent e) {
@@ -42,44 +47,14 @@ public class SwordPvPListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
-        if (e.getEntity().getKiller() != null) {
-            Player p = e.getEntity();
-            Player killer = p.getKiller();
-
-            if (p.getMetadata("pvp").get(0).asBoolean() && killer.getMetadata("pvp").get(0).asBoolean()) {
-                if (4 != -1) {
-                    killer.setHealth(clamp(killer.getHealth() + 4, 0.0, killer.getMaxHealth()));
-                    Api.sendMessage(killer, Main.pluginConfig.getMessages().getPrefix() + "&aZabiłeś &e" + p.getName() + " &ai zyskałeś &c4 serca");
-                }
-                p.setHealth(p.getMaxHealth());
-
-                this.pvp.remove(p);
-                this.pvpTask.remove(p);
-                this.pvpTask2.remove(p);
-
-                p.getInventory().setHeldItemSlot(0);
-
-                Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&cGracz &e" + killer + " &czabił Cie!");
-                Api.sendMessage(killer, Main.pluginConfig.getMessages().getPrefix() + "&aZabiłeś &e" + p);
-
-                p.getInventory().setHelmet(new ItemStack(Material.AIR));
-                p.getInventory().setChestplate(new ItemStack(Material.AIR));
-                p.getInventory().setLeggings(new ItemStack(Material.AIR));
-                p.getInventory().setBoots(new ItemStack(Material.AIR));
-                e.setDeathMessage(null);
-            }
-        }
-    }
-
-    public double clamp(double value, double min, double max) {
-        return Math.max(min, Math.min(max, value));
+        e.getDrops().clear();
+        e.setDeathMessage(null);
     }
 
     @EventHandler
     public void onSlotChange(PlayerItemHeldEvent e) {
         Player p = e.getPlayer();
         ItemStack held = e.getPlayer().getInventory().getItem(e.getNewSlot());
-        System.out.println("item held: -1");
         if (sword.isSimilar(held)) {
             if (pvpTask.containsKey(p)) {
                 pvpTask.get(p).cancel();
@@ -102,7 +77,7 @@ public class SwordPvPListener implements Listener {
                         this.cancel();
                     } else {
                         if (sword.isSimilar(held)) {
-                            Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "tol " + time);
+                            Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&aWalka zacznie się za &e" + time);
                         } else this.cancel();
                     }
                 }
@@ -118,56 +93,40 @@ public class SwordPvPListener implements Listener {
             this.pvp.add(p);
             Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&aWalka została &ewłączona!");
 
-            p.getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
-            p.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
-            p.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
-            p.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
-
-            flying.put(p, p.getAllowFlight());
-            p.setAllowFlight(false);
+            p.getInventory().setHelmet(new ItemApi(Material.DIAMOND_HELMET, (short)0)
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4)
+                    .addEnchant(Enchantment.DURABILITY, 10)
+                    .setUnbreakable(true)
+                    .setName("&bZbroja - Hełm")
+                    .toIS());
+            p.getInventory().setChestplate(new ItemApi(Material.DIAMOND_CHESTPLATE, (short)0)
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4)
+                    .addEnchant(Enchantment.DURABILITY, 10)
+                    .setUnbreakable(true)
+                    .setName("&bZbroja - Napierśnik")
+                    .toIS());
+            p.getInventory().setLeggings(new ItemApi(Material.DIAMOND_LEGGINGS, (short)0)
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4)
+                    .addEnchant(Enchantment.DURABILITY, 10)
+                    .setUnbreakable(true)
+                    .setName("&bZbroja - Spodnie")
+                    .toIS());
+            p.getInventory().setBoots(new ItemApi(Material.DIAMOND_BOOTS, (short)0)
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4)
+                    .addEnchant(Enchantment.DURABILITY, 10)
+                    .setUnbreakable(true)
+                    .setName("&bZbroja - Buty")
+                    .toIS());
         } else {
             if (this.pvp.contains(p)) {
                 this.pvp.remove(p);
-                if (this.pvpTask.containsKey(p)) {
-                    BukkitRunnable bukkitRunnable = this.pvpTask.get(p);
-                    bukkitRunnable.cancel();
-                }
-
-                if (this.pvpTask2.containsKey(p)) {
-                    BukkitRunnable bukkitRunnable = this.pvpTask2.get(p);
-                    bukkitRunnable.cancel();
-                }
                 Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&cWalka została &ewyłączona!");
             }
 
-            p.getInventory().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
-            p.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-            p.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
-            p.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
-            p.setAllowFlight(flying.get(p) != null && flying.get(p));
-            flying.remove(p);
+            p.getInventory().setArmorContents(new ItemStack[4]);
+            p.setHealth(20.0);
         }
         p.setHealth(p.getMaxHealth());
-    }
-
-    @EventHandler
-    public void onClick(InventoryInteractEvent e) {
-        ItemStack item = e.getInventory().getItem(1);
-        System.out.println("click event: 0");
-        if (item != null && item.getType().equals(Material.DIAMOND_SWORD)) {
-            System.out.println("click event: 1");
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
-        ItemStack item = e.getItemDrop().getItemStack();
-        System.out.println("drop item: 0");
-        if (item.getType().equals(Material.DIAMOND_SWORD)) {
-            System.out.println("drop item: 1");
-            e.setCancelled(true);
-        }
     }
 
 }

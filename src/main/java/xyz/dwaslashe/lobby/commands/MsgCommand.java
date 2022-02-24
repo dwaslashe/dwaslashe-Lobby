@@ -38,7 +38,7 @@ public class MsgCommand extends Command implements Listener {
         } else if (args.length > 1) {
             Player p2 = Bukkit.getPlayer(args[0]);
             if (p2 == null) {
-                p.sendTitle(Api.fixColor("&d&lLOBBY V1"), Api.fixColor("&8>> &7Ten gracz jest&8: &fOFFLINE"));
+                offlinePlayer();
                 return;
             }
 

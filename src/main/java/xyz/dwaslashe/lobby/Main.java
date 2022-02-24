@@ -2,15 +2,12 @@ package xyz.dwaslashe.lobby;
 
 import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.dwaslashe.lobby.commands.*;
 import xyz.dwaslashe.lobby.commands.managers.CommandManager;
 import xyz.dwaslashe.lobby.configs.PluginConfig;
 import xyz.dwaslashe.lobby.helpers.InventoryHelper;
 import xyz.dwaslashe.lobby.listeners.*;
-import xyz.dwaslashe.lobby.utils.LicenseApi;
 
 import java.io.File;
 
@@ -52,14 +49,6 @@ public class Main extends JavaPlugin {
 
         loadCommands();
         loadEvents();
-
-        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            public void run() {
-                for (Player ps : Bukkit.getOnlinePlayers()) {
-                    PlayerAfkListener.checkPlayer(ps);
-                }
-            }
-        }, 0, 20 * 60 * 5);
     }
 
     public void loadCommands() {
@@ -78,11 +67,13 @@ public class Main extends JavaPlugin {
     public void loadEvents() {
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerAfkListener(), this);
         getServer().getPluginManager().registerEvents(new SwordPvPListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerHubListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerTeleportBowListener(), this);
         getServer().getPluginManager().registerEvents(new OthersListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
         getServer().getPluginManager().registerEvents(new MediaCommand(), this);
+        getServer().getPluginManager().registerEvents(new LaunchPadListener(), this);
         InventoryHelper.implement(this);
     }
 }

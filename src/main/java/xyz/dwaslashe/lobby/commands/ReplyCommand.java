@@ -34,7 +34,7 @@ public class ReplyCommand extends Command {
             if (args.length > 0) {
                 Player p2 = (Player) xyz.dwaslashe.lobby.commands.MsgCommand.getLastMsg().get(p);
                 if (p2 == null) {
-                    p.sendTitle(Api.fixColor("&f&lWIADOMOSCI"), Api.fixColor("&8>> &7Nie masz komu odpisac! &8<<"));
+                    offlinePlayer();
                     return;
                 }
 

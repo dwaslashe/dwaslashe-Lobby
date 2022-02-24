@@ -39,10 +39,10 @@ public class PluginConfig extends OkaeriConfig {
     public static class Messages extends OkaeriConfig {
 
         @Comment("Messages")
-        private String ip = " &#FFD700&lWywrotkaMC";
+        private String ip = " &f&lHUB";
         private String prefix = " &8>> &7";
-        private String discord = "dc.wywrotkamc.pl";
-        private String website = "www.wywrotkamc.pl";
+        private String discord = "dc.wywrotkamc.pl dc.pajacemc.pl";
+        private String website = "www.wywrotkamc.pl www.pajacemc.pl";
     }
 
     //Auto Tasks
@@ -159,6 +159,8 @@ public class PluginConfig extends OkaeriConfig {
                 "regions",
                 "region",
                 "rg",
+                "tab:tab",
+                "tab",
                 "shopgui",
                 "shopguiplus",
                 "viaver",

@@ -31,7 +31,7 @@ public class MediaCommand extends Command implements Listener {
         }
     }
 
-    private void openGui(int guiID, Player player) {
+    public static void openGui(int guiID, Player player) {
         //0
         if (guiID == 0) {
             InventoryHelper inventoryHelper = new InventoryHelper(player, "Social Media", 3);

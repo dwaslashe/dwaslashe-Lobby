@@ -1,17 +1,27 @@
 package xyz.dwaslashe.lobby.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerCommandSendEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.help.HelpTopic;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import xyz.dwaslashe.lobby.Main;
 import xyz.dwaslashe.lobby.utils.Api;
 
@@ -36,6 +46,64 @@ public class OthersListener implements Listener {
                 e.setCancelled(false);
             }
         }
+    }
+
+    @EventHandler
+    public void onCancelFallDamage(EntityDamageEvent e) {
+        if(e.getEntity() instanceof Player) {
+            if(e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                e.setCancelled(true);
+            } else if (e.getCause() == EntityDamageEvent.DamageCause.CONTACT) {
+                e.setCancelled(true);
+            } else if (e.getCause() == EntityDamageEvent.DamageCause.CRAMMING) {
+                e.setCancelled(true);
+            } else if (e.getCause() == EntityDamageEvent.DamageCause.FALLING_BLOCK) {
+                e.setCancelled(true);
+            } else if (e.getCause() == EntityDamageEvent.DamageCause.FLY_INTO_WALL) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void setWeatherChange(WeatherChangeEvent e) {
+        e.setCancelled(false);
+    }
+
+    @EventHandler
+    public void onPlace(BlockPlaceEvent e) {
+        Player p = e.getPlayer();
+        if (!p.hasPermission("core.spawn.bypass")) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onReSpawn(PlayerRespawnEvent e) {
+        Player p = e.getPlayer();
+        World world = Bukkit.getWorld("world");
+        p.teleport(new Location(world, 0, 65, -0, -90 ,0));
+    }
+
+    @EventHandler
+    public void onBrake(BlockBreakEvent e) {
+        Player p = e.getPlayer();
+        if (!p.hasPermission("core.spawn.bypass")) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e) {
+        Player p = e.getPlayer();
+        if (!p.hasPermission("core.spawn.bypass")) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onFoodLeveChange(FoodLevelChangeEvent e) {
+        e.setCancelled(true);
     }
 
     @EventHandler
