@@ -3,6 +3,7 @@ package xyz.dwaslashe.lobby.listeners;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,11 +28,11 @@ public class SwordPvPListener implements Listener {
     public ArrayList<Player> pvp = new ArrayList<>();
 
     public static ItemStack sword = new ItemApi(Material.DIAMOND_SWORD, (short)0)
-            .addEnchant(Enchantment.DAMAGE_ALL, 5)
+            .addEnchant(Enchantment.DAMAGE_ALL, 6)
             .addEnchant(Enchantment.DURABILITY, 10)
             .setName("&#FF3131Walka &8(&7przytrzymaj&8)")
             .setUnbreakable(true)
-            .setLore(Arrays.asList("", " &f&nNajedź na miecz aby zaczac walke!"))
+            .setLore(Arrays.asList("", " &#FBFD8C&nNajedź na miecz aby zaczac walke!"))
             .toIS();
 
     @EventHandler
@@ -78,6 +79,7 @@ public class SwordPvPListener implements Listener {
                     } else {
                         if (sword.isSimilar(held)) {
                             Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&aWalka zacznie się za &e" + time);
+                            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 10, 10);
                         } else this.cancel();
                     }
                 }
@@ -92,6 +94,7 @@ public class SwordPvPListener implements Listener {
         if (pvp) {
             this.pvp.add(p);
             Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&aWalka została &ewłączona!");
+            p.playSound(p.getLocation(), Sound.BLOCK_WOOD_BREAK, 10, 10);
 
             p.getInventory().setHelmet(new ItemApi(Material.DIAMOND_HELMET, (short)0)
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4)
@@ -121,6 +124,7 @@ public class SwordPvPListener implements Listener {
             if (this.pvp.contains(p)) {
                 this.pvp.remove(p);
                 Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&cWalka została &ewyłączona!");
+                p.playSound(p.getLocation(), Sound.BLOCK_WOOD_BREAK, 10, 10);
             }
 
             p.getInventory().setArmorContents(new ItemStack[4]);

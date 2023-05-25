@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.dwaslashe.lobby.utils.ItemApi;
@@ -19,10 +18,10 @@ import java.util.Arrays;
 public class PlayerTeleportBowListener implements Listener {
 
     public static ItemStack teleport = new ItemApi(Material.BOW, (short) 0)
-            .setName("&bTeleport &8(&7prawy przycisk&8)")
+            .setName("&#21F8F6Teleport &8(&7prawy przycisk&8)")
             .addEnchant(Enchantment.ARROW_INFINITE, 1)
             .setUnbreakable(true)
-            .setLore(Arrays.asList("", " &f&nSzczel aby przeteleportować się!"))
+            .setLore(Arrays.asList("", " &#FBFD8C&nNaciągnij łuk aby przeteleportować się!"))
             .toIS();
 
     @EventHandler

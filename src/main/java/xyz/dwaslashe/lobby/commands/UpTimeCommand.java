@@ -1,0 +1,28 @@
+package xyz.dwaslashe.lobby.commands;
+
+import org.bukkit.command.CommandSender;
+import xyz.dwaslashe.lobby.Main;
+import xyz.dwaslashe.lobby.commands.managers.Command;
+import xyz.dwaslashe.lobby.utils.Api;
+import xyz.dwaslashe.lobby.utils.TimerApi;
+
+import java.lang.management.ManagementFactory;
+import java.util.List;
+
+public class UpTimeCommand extends Command {
+    public UpTimeCommand() {
+        super("uptime", "/uptime", "");
+    }
+
+    @Override
+    public List<String> tabCompleteExecute(CommandSender sender, String[] args) {
+        return null;
+    }
+
+    @Override
+    public void commandExecute(CommandSender sender, String[] args) {
+        if (args.length >= 0) {
+            Api.sendMessage(sender, Main.pluginConfig.getMessages().getPrefix() + "&aUpTime &e" + TimerApi.getDurationBreakdownShort(ManagementFactory.getRuntimeMXBean().getUptime()));
+        }
+    }
+}

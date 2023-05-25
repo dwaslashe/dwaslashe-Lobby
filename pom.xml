@@ -9,7 +9,7 @@
 
     <groupId>xyz.dwaslashe</groupId>
     <artifactId>dwaslashe-Lobby</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-stable</version>
 
     <repositories>
         <repository>
@@ -57,6 +57,13 @@
             <version>1.18-R0.1-SNAPSHOT</version>
             <scope>system</scope>
             <systemPath>C:/Users/ciapc/Desktop/Projekty Intellij/dwaslashe-Lobby/libs/PlaceholderAPI-2.11.1 (1).jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>xyz.arturek</groupId>
+            <artifactId>mineLogin</artifactId>
+            <version>1.18-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/ciapc/Desktop/Projekty Intellij/dwaslashe-Lobby/libs/mineLogin-1.5.4-bungeecord-public (1).jar</systemPath>
         </dependency>
         <dependency>
             <groupId>eu.okaeri</groupId>
@@ -107,8 +114,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>

@@ -29,7 +29,7 @@ public class PluginConfig extends OkaeriConfig {
     public static class Core extends OkaeriConfig {
 
         @Comment("Your license:")
-        private String license = "X5E4-544G-85NH-7SA5";
+        private String license = "CPDI-CL22-PY79-US5D";
     
     }
 
@@ -41,8 +41,8 @@ public class PluginConfig extends OkaeriConfig {
         @Comment("Messages")
         private String ip = " &f&lHUB";
         private String prefix = " &8>> &7";
-        private String discord = "dc.wywrotkamc.pl dc.pajacemc.pl";
-        private String website = "www.wywrotkamc.pl www.pajacemc.pl";
+        private String discord = "dc.wywrotkamc.pl";
+        private String website = "www.wywrotkamc.pl";
     }
 
     //Auto Tasks
@@ -89,6 +89,9 @@ public class PluginConfig extends OkaeriConfig {
 
         @Comment("Chat")
         private String format = "{PREFIX}&7{PLAYER} &8>>{SUFFIX} {MESSAGE}";
+        private String on = "&a&lCZAT ZOSTAŁ WŁĄCZONY";
+        private String off = "&c&LCZAT ZOSTAŁ WYŁĄCZONY";
+        private String clear = "&b&lCZAT ZOSTAŁ WYCZYSZCZONY";
 
         private List<String> blocktabcommands = Arrays.asList("/br",
                 "/brush",

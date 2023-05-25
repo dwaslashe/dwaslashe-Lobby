@@ -13,9 +13,9 @@ import xyz.dwaslashe.lobby.utils.ItemApi;
 
 public class PlayerJoinListener implements Listener {
 
-    private ItemStack arrow = new ItemApi(Material.ARROW, (short)0)
+    public static ItemStack arrow = new ItemApi(Material.ARROW, (short)0)
             .setAmount(1)
-            .setName("&bSzczała")
+            .setName("&#21F8F6Szczała")
             .toIS();
 
     @EventHandler
@@ -24,7 +24,9 @@ public class PlayerJoinListener implements Listener {
         World world = Bukkit.getWorld("world");
         p.setHealth(20.0);
         p.setFoodLevel(20);
-        p.teleport(new Location(world, 0, 65, -0, -90 ,0));
+        p.getInventory().clear();
+        //p.teleport(new Location(world, 118, 84, 118, 0 ,0));//hotmc
+        p.teleport(new Location(world, 0.5, 65, -1.5, -90 ,0));//wywrotkamc
         p.getInventory().setItem(0, PlayerHubListener.compass);
         p.getInventory().setItem(1, PlayerHubListener.socialmedia);
         p.getInventory().setItem(2, PlayerTeleportBowListener.teleport);

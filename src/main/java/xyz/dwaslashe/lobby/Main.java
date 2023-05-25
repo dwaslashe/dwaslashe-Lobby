@@ -5,9 +5,14 @@ import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.dwaslashe.lobby.commands.*;
 import xyz.dwaslashe.lobby.commands.managers.CommandManager;
+import xyz.dwaslashe.lobby.commands.servers.BoxPvPCommand;
+import xyz.dwaslashe.lobby.commands.servers.Practice2Command;
+import xyz.dwaslashe.lobby.commands.servers.PracticeCommand;
+import xyz.dwaslashe.lobby.commands.servers.SurvivalCommand;
 import xyz.dwaslashe.lobby.configs.PluginConfig;
 import xyz.dwaslashe.lobby.helpers.InventoryHelper;
 import xyz.dwaslashe.lobby.listeners.*;
+import xyz.dwaslashe.lobby.utils.LicenseApi;
 
 import java.io.File;
 
@@ -63,6 +68,19 @@ public class Main extends JavaPlugin {
         CommandManager.register(new ReplyCommand(), true);
         CommandManager.register(new WebsiteCommand(), true);
         CommandManager.register(new SidebarCommand(), true);
+        CommandManager.register(new ChatCommand(), true);
+        CommandManager.register(new PingCommand(), true);
+        CommandManager.register(new UpTimeCommand(), true);
+        CommandManager.register(new DayCommand(), true);
+        CommandManager.register(new NightCommand(), true);
+        CommandManager.register(new SunCommand(), true);
+        CommandManager.register(new StormCommand(), true);
+        CommandManager.register(new InvseeComand(), true);
+
+        CommandManager.register(new BoxPvPCommand(), true);
+        CommandManager.register(new SurvivalCommand(), true);
+        CommandManager.register(new Practice2Command(), true);
+        CommandManager.register(new PracticeCommand(), true);
     }
     public void loadEvents() {
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);

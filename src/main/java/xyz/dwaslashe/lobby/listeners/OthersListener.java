@@ -2,17 +2,10 @@ package xyz.dwaslashe.lobby.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarFlag;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -20,15 +13,16 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.help.HelpTopic;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import xyz.dwaslashe.lobby.Main;
+import xyz.dwaslashe.lobby.commands.ChatCommand;
 import xyz.dwaslashe.lobby.utils.Api;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class OthersListener implements Listener {
+    HashMap<Player, String> previousMessages = new HashMap<>();
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
@@ -45,6 +39,28 @@ public class OthersListener implements Listener {
             } else if (p.hasPermission("core.chat.block.bypass")) {
                 e.setCancelled(false);
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerChatSameMessage(PlayerChatEvent event) {
+        Player player = event.getPlayer();
+        String message = event.getMessage();
+        if (previousMessages.containsKey(player)) {
+            if (message.equalsIgnoreCase(previousMessages.get(player))) {
+                Api.sendMessage(player, Main.pluginConfig.getMessages().getPrefix() + "&cNie możesz wysłać znowu takiej samej wiadomości!");
+                event.setCancelled(true);
+            }
+        }
+        previousMessages.put(player, message);
+    }
+
+    @EventHandler
+    public void onChat(PlayerChatEvent e) {
+        Player p = e.getPlayer();
+        if (!ChatCommand.disablechat.get(ChatCommand.TYPE.WRITABLE)) {
+            e.setCancelled(true);
+            Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&cCzat jest wyłączony!");
         }
     }
 
@@ -114,6 +130,17 @@ public class OthersListener implements Listener {
                 event.getCommands().remove(string);
             }
         }
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent e) {
+        Player p = e.getPlayer();
+        p.getInventory().clear();
+        p.getInventory().setItem(0, PlayerHubListener.compass);
+        p.getInventory().setItem(1, PlayerHubListener.socialmedia);
+        p.getInventory().setItem(2, PlayerTeleportBowListener.teleport);
+        p.getInventory().setItem(8, SwordPvPListener.sword);
+        p.getInventory().setItem(9, PlayerJoinListener.arrow);
     }
 
     @EventHandler

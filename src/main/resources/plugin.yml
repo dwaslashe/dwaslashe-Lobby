@@ -3,6 +3,8 @@ version: 1.0
 api-version: 1.16
 description: Tools for Servers Lobby
 author: dwaslashe
+depend:
+  - PlaceholderAPI
 main: xyz.dwaslashe.lobby.Main
 commands:
   sb:
