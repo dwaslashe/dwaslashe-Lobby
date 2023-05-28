@@ -30,7 +30,7 @@ public class SwordPvPListener implements Listener {
     public static ItemStack sword = new ItemApi(Material.DIAMOND_SWORD, (short)0)
             .addEnchant(Enchantment.DAMAGE_ALL, 6)
             .addEnchant(Enchantment.DURABILITY, 10)
-            .setName("&#FF3131Walka &8(&7przytrzymaj&8)")
+            .setName("&#f72f3cWalka")
             .setUnbreakable(true)
             .setLore(Arrays.asList("", " &#FBFD8C&nNajedź na miecz aby zaczac walke!"))
             .toIS();
@@ -78,7 +78,8 @@ public class SwordPvPListener implements Listener {
                         this.cancel();
                     } else {
                         if (sword.isSimilar(held)) {
-                            Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&aWalka zacznie się za &e" + time);
+                            //Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&aWalka zacznie się za &e" + time);
+                            p.sendTitle(Api.fixColor("&#f72f3c&lWALKA"), Api.fixColor("&8>> &aWalka zacznie się za &#f7c52f" + time + " &8<<"));
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 10, 10);
                         } else this.cancel();
                     }
@@ -93,7 +94,7 @@ public class SwordPvPListener implements Listener {
     public void setPvP(Player p, boolean pvp) {
         if (pvp) {
             this.pvp.add(p);
-            Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&aWalka została &ewłączona!");
+            p.sendTitle(Api.fixColor("&#f72f3c&lWALKA"), Api.fixColor("&8>> &aWalka została &#f7c52fwłączona &8<<"));
             p.playSound(p.getLocation(), Sound.BLOCK_WOOD_BREAK, 10, 10);
 
             p.getInventory().setHelmet(new ItemApi(Material.DIAMOND_HELMET, (short)0)
@@ -123,7 +124,7 @@ public class SwordPvPListener implements Listener {
         } else {
             if (this.pvp.contains(p)) {
                 this.pvp.remove(p);
-                Api.sendMessage(p, Main.pluginConfig.getMessages().getPrefix() + "&cWalka została &ewyłączona!");
+                p.sendTitle(Api.fixColor("&#f72f3c&lWALKA"), Api.fixColor("&8>> &aWalka została &#f7c52fwyłączona &8<<"));
                 p.playSound(p.getLocation(), Sound.BLOCK_WOOD_BREAK, 10, 10);
             }
 

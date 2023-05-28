@@ -29,6 +29,7 @@ public class PlayerJoinListener implements Listener {
         p.teleport(new Location(world, 0.5, 65, -1.5, -90 ,0));//wywrotkamc
         p.getInventory().setItem(0, PlayerHubListener.compass);
         p.getInventory().setItem(1, PlayerHubListener.socialmedia);
+        p.getInventory().setItem(6, PlayerHubListener.changelobby);
         p.getInventory().setItem(2, PlayerTeleportBowListener.teleport);
         p.getInventory().setItem(8, SwordPvPListener.sword);
         p.getInventory().setItem(9, arrow);

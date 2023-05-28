@@ -150,7 +150,7 @@ public class OthersListener implements Listener {
             String msg = e.getMessage().split(" ")[0];
             HelpTopic topic = Bukkit.getServer().getHelpMap().getHelpTopic(msg);
             if (topic == null) {
-                p.sendTitle(Api.fixColor(Main.pluginConfig.getMessages().getIp()), Api.fixColor("&8>> &7Komenda &f" + msg + " &7nie istnieje &8<<"), 10, 40, 10);
+                p.sendTitle(Api.fixColor(Main.pluginConfig.getMessages().getIp()), Api.fixColor("&8>> &#FF3131Komenda &#FFC42E" + msg + " &#FF3131nie istnieje &8<<"), 10, 40, 10);
                 e.setCancelled(true);
             }
         }

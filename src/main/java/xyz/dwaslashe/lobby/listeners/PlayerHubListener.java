@@ -26,11 +26,15 @@ import java.util.Arrays;
 public class PlayerHubListener implements Listener {
 
     public static ItemStack compass = new ItemApi(Material.COMPASS, (short)0)
-            .setName("&#FFF01FWybierz tryb &8(&7prawy przycisk&8)")
+            .setName("&#ebb434Wybierz tryb")
             .setLore(Arrays.asList("", " &#FBFD8C&nKliknij aby wybrać tryb!"))
             .toIS();
+    public static ItemStack changelobby = new ItemApi(Material.NETHER_STAR, (short)0)
+            .setName("&#e240f7Zmień hub")
+            .setLore(Arrays.asList("", " &#FBFD8C&nKliknij aby zmienić serwer hub!"))
+            .toIS();
     public static ItemStack socialmedia = new ItemApi(Material.BOOK, (short)0)
-            .setName("&#39FF14Media &8(&7prawy przycisk&8)")
+            .setName("&#65eb34Media")
             .setLore(Arrays.asList("", " &#FBFD8C&nKliknij aby zobaczyć nasze socialmedia!"))
             .toIS();
 
@@ -44,6 +48,9 @@ public class PlayerHubListener implements Listener {
                 e.setCancelled(true);
             } else if (e.getItem() != null && e.getItem().equals(socialmedia)) {
                 MediaCommand.openGui(0, p);
+                e.setCancelled(true);
+            } else if (e.getItem() != null && e.getItem().equals(changelobby)) {
+                openGui(1, p);
                 e.setCancelled(true);
             }
         }
@@ -196,7 +203,7 @@ public class PlayerHubListener implements Listener {
                             "",
                             " &#FBFFFFGraczy online: &#FFC42E%bungee_boxpvp%",
                             " &#FBFFFFWersja: &#4ec8fc1.18.2 - 1.19.4",
-                            " &#FBFFFFData rozpoczęcia: &#f55dbb22.05.2023",
+                            " &#FBFFFFData rozpoczęcia: &#f55dbb02.06.2023",
                             "",
                             " &#FBFD8C&nKliknij aby dołączyć do trybu!"
                     ))));
@@ -345,11 +352,106 @@ public class PlayerHubListener implements Listener {
             //inventoryHelper.setItem(16, bedwars);
 //
             //inventoryHelper.setItem(19, glass_lime);
-            inventoryHelper.setItem(20, glass_lime);
+            inventoryHelper.setItem(20, glass_red);
             inventoryHelper.setItem(21, glass_lime);
             inventoryHelper.setItem(23, glass_lime);
             inventoryHelper.setItem(24, glass_lime);
             //inventoryHelper.setItem(25, glass_lime);
+            inventoryHelper.open(player);
+
+        }
+
+        if (guiID == 1) {
+            InventoryHelper inventoryHelper = new InventoryHelper(player, "Wybierz hub", 4);
+
+            ItemStack glass_black = inventoryHelper.prepareItemStack(Material.BLACK_STAINED_GLASS_PANE, itemStack -> {
+                inventoryHelper.editMetaForItemStack(itemStack, itemMeta -> {
+                    itemMeta.setDisplayName(" ");
+                });
+            });
+
+            ItemStack glass_lime = inventoryHelper.prepareItemStack(Material.LIME_STAINED_GLASS_PANE, itemStack -> {
+                inventoryHelper.editMetaForItemStack(itemStack, itemMeta -> {
+                    itemMeta.setDisplayName(Api.fixColor("&#39FF14WŁĄCZONY"));
+                });
+            });
+
+            ItemStack glass_red = inventoryHelper.prepareItemStack(Material.RED_STAINED_GLASS_PANE, itemStack -> {
+                inventoryHelper.editMetaForItemStack(itemStack, itemMeta -> {
+                    itemMeta.setDisplayName(Api.fixColor("&#FF3131WYŁĄCZONY"));
+                });
+            });
+
+            ItemStack lobby1 = inventoryHelper.prepareItemStack(Material.LEGACY_SKULL_ITEM, itemStack -> {
+                itemStack.setDurability((short) 3);
+                inventoryHelper.editSkullMetaWithProperty(itemStack, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjFkODU5ZThiMTRmNjI2NDY4NTljZjM4MDRhNjRmMTA2MGQ2ODc5MzQxYjRjMzM4NWI0NmEwZWM0MGZhZjczYyJ9fX0=");
+                inventoryHelper.editMetaForItemStack(itemStack, itemMeta -> {
+                    itemMeta.setDisplayName(Api.fixColor("&#FBFFFF&lHUB &#FBFFFF#1"));
+                    itemMeta.setLore(Api.fixColor(PlaceholderAPI.setPlaceholders(player, Arrays.asList(
+                            "",
+                            " &#FBFFFFGraczy online: &#FFC42E%bungee_lobby%",
+                            "",
+                            " &#FBFD8C&nKliknij aby dołączyć do hub!"
+                    ))));
+                });
+            });
+
+            ItemStack lobby2 = inventoryHelper.prepareItemStack(Material.LEGACY_SKULL_ITEM, itemStack -> {
+                itemStack.setDurability((short) 3);
+                inventoryHelper.editSkullMetaWithProperty(itemStack, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjNkOTNlOGI1ZmIwYjVkNTBhYmQ0ZWY4ODUzMmY0Njg3NGI5OTI0ZjY2OGRkYjAxMDkxNDY4ZTRlNjFiOWM4MyJ9fX0=");
+                inventoryHelper.editMetaForItemStack(itemStack, itemMeta -> {
+                    itemMeta.setDisplayName(Api.fixColor("&#FBFFFF&lHUB &#FBFFFF#2"));
+                    itemMeta.setLore(Api.fixColor(PlaceholderAPI.setPlaceholders(player, Arrays.asList(
+                            "",
+                            " &#FBFFFFGraczy online: &#FFC42E%bungee_lobby2%",
+                            "",
+                            " &#FBFD8C&nKliknij aby dołączyć do hub!"
+                    ))));
+                });
+            });
+
+            ItemStack back = inventoryHelper.prepareItemStack(Material.BARRIER, itemStack -> {
+                inventoryHelper.editMetaForItemStack(itemStack, itemMeta -> {
+                    itemMeta.setDisplayName(Api.fixColor("&#FF3131Zamknij"));
+                });
+            });
+
+
+            inventoryHelper.click(e -> {
+                e.setCancelled(true);
+                e.setResult(Event.Result.DENY);
+                if (e.getSlot() == 10) {
+                    if (Main.pluginConfig.getMessages().getServer().equals("LOBBY")) {
+                        player.getOpenInventory().close();
+                        player.updateInventory();
+                        Api.sendMessage(player, Main.pluginConfig.getMessages().getPrefix() + "&cNie możesz się z tym serwerem połączyć bo jesteś na nim!");
+                    } else {
+                        player.getOpenInventory().close();
+                        player.updateInventory();
+                        Api.sendPlayerToServer(player, "LOBBY");
+                        Api.sendMessage(player, Main.pluginConfig.getMessages().getPrefix() + "&aTrwa łączenie z serwerem..");
+                    }
+                } else if (e.getSlot() == 11) {
+                    if (Main.pluginConfig.getMessages().getServer().equals("LOBBY2")) {
+                        player.getOpenInventory().close();
+                        player.updateInventory();
+                        Api.sendMessage(player, Main.pluginConfig.getMessages().getPrefix() + "&cNie możesz się z tym serwerem połączyć bo jesteś na nim!");
+                    } else {
+                        player.getOpenInventory().close();
+                        player.updateInventory();
+                        Api.sendPlayerToServer(player, "LOBBY2");
+                        Api.sendMessage(player, Main.pluginConfig.getMessages().getPrefix() + "&aTrwa łączenie z serwerem..");
+                    }
+                } else if (e.getSlot() == 31) {
+                    player.closeInventory();
+                }
+            });
+
+            inventoryHelper.setItemRange(0, 11, glass_black);
+            inventoryHelper.setItem(10, lobby1);
+            inventoryHelper.setItem(11, lobby2);
+            inventoryHelper.setItemRange(17, 36, glass_black);
+            inventoryHelper.setItem(31, back);
             inventoryHelper.open(player);
 
         }

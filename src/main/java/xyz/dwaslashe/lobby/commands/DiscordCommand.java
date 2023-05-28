@@ -19,6 +19,6 @@ public class DiscordCommand extends Command {
 
     @Override
     public void commandExecute(CommandSender sender, String[] args) {
-        sender.sendMessage(Api.fixColor(" &8>> &aDiscord serwera &b" + Main.pluginConfig.getMessages().getDiscord()));
+        sender.sendMessage(Api.fixColor(" &8>> &aLink do naszego discorda &#7289da" + Main.pluginConfig.getMessages().getDiscord()));
     }
 }

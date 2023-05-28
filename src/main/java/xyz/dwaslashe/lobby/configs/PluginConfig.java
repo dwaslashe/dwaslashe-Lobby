@@ -43,6 +43,7 @@ public class PluginConfig extends OkaeriConfig {
         private String prefix = " &8>> &7";
         private String discord = "dc.wywrotkamc.pl";
         private String website = "www.wywrotkamc.pl";
+        private String server = "LOBBY";
     }
 
     //Auto Tasks

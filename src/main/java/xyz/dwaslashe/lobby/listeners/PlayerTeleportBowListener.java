@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class PlayerTeleportBowListener implements Listener {
 
     public static ItemStack teleport = new ItemApi(Material.BOW, (short) 0)
-            .setName("&#21F8F6Teleport &8(&7prawy przycisk&8)")
+            .setName("&#349cebTeleport")
             .addEnchant(Enchantment.ARROW_INFINITE, 1)
             .setUnbreakable(true)
             .setLore(Arrays.asList("", " &#FBFD8C&nNaciągnij łuk aby przeteleportować się!"))

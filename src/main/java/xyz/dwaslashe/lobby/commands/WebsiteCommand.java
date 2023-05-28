@@ -20,7 +20,7 @@ public class WebsiteCommand extends Command {
     @Override
     public void commandExecute(CommandSender sender, String[] args) {
         if (args.length >= 0) {
-            sender.sendMessage(Api.fixColor(" &8>> &aStrona serwera &e" + Main.pluginConfig.getMessages().getWebsite()));
+            sender.sendMessage(Api.fixColor(" &8>> &aStrona WWW &#e6cf3c" + Main.pluginConfig.getMessages().getWebsite()));
         }
     }
 }
