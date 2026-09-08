@@ -1,6 +1,6 @@
 # 🏰 dwaslashe-Lobby
 
-Autorski plugin serwerowy dedykowany dla sektora **Lobby / Hub** w sieci serwerów **dwaslashe.xyz**. Odpowiada za obsługę interakcji na lobby, przekierowywanie graczy na inne tryby gry, mechaniki rozrywkowe oraz narzędzia administracyjne.
+Autorski plugin serwerowy dedykowany dla sektora **Lobby / Hub** w sieci serwerów **hotmc.pl || pvpplay.pl || wywrotkamc.pl || lotmc.pl**. Odpowiada za obsługę interakcji na lobby, przekierowywanie graczy na inne tryby gry, mechaniki rozrywkowe oraz narzędzia administracyjne.
 
 ---
 
